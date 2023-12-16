@@ -1,3 +1,18 @@
+# 코딩 공부 기록을 위한 사이트 제작
+
+## Update List
+
+- 2023-12-17 초기 세팅 완료
+
+## todo List
+
+- Tag 별 분리화면 제작
+- 포스트 내부에서도 다른 포스트 접근
+
+## Develop Map
+
+[Figma](https://www.figma.com/file/xafa3dAIfF1UpmuFTt9fan/CyIVA.github.io?type=design&node-id=0%3A1&mode=design&t=nF5llIH0OC83VYCE-1)
+
 # Jekyll Theme Serial Programmer
 
 > A Jekyll theme for serial programmers (-.-)
