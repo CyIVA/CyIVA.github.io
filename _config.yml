@@ -12,6 +12,8 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
 
+future: true
+
 collections_dir: all_collections
 collections:
   posts:
