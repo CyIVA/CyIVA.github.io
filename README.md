@@ -6,7 +6,7 @@
 
 ## todo List
 
-- Tag 별 분리화면 제작
+- Tag 별 분리화면 제작(ing)
 - 포스트 내부에서도 다른 포스트 접근
 
 ## Develop Map
