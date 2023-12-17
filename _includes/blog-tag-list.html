@@ -1,0 +1,18 @@
+<section id="tag-list">
+  <div class="categories">
+    <!-- prettier-ignore -->
+    {% assign CATEGORY = "" | split: ',' %} 
+    {% for post in site.posts %} 
+        {% for c in post.categories %} 
+            {% assign CATEGORY = CATEGORY | push: c %} 
+        {% endfor %} 
+    {% endfor %} 
+    {% assign CATEGORY = CATEGORY | uniq %}
+
+    <!-- tag add -->
+    {% for c in CATEGORY %}
+
+    <a href="#!" data-base-url="{{site.baseurl}}" class="category">{{c}}</a>
+    {% endfor %}
+  </div>
+</section>
