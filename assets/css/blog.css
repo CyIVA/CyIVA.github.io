@@ -80,10 +80,10 @@ main {
     border-bottom: 1px solid cyan;
   }
 }
-#social-wrapper {
+#sns-wrapper {
   margin-top: 1rem;
 }
-#social-wrapper img {
+#sns-wrapper img {
   filter: invert() !important;
   width: 25px;
   height: 25px;
@@ -91,21 +91,21 @@ main {
   transition: all 0.2s ease-in-out;
 }
 @media (prefers-color-scheme: light) {
-  #social-wrapper img {
+  #sns-wrapper img {
     filter: none !important;
   }
 }
 [data-theme="light"] {
-  #social-wrapper img {
+  #sns-wrapper img {
     filter: none !important;
   }
 }
 [data-theme="dark"] {
-  #social-wrapper img {
+  #sns-wrapper img {
     filter: invert() !important;
   }
 }
-#social-wrapper img:hover {
+#sns-wrapper img:hover {
   transform: scale(1.2);
 }
 
