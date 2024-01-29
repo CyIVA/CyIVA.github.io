@@ -1,18 +1,47 @@
 <section id="tag-list">
   <div class="categories">
     <!-- prettier-ignore -->
+
     {% assign CATEGORY = "" | split: ',' %} 
     {% for post in site.posts %} 
         {% for c in post.categories %} 
             {% assign CATEGORY = CATEGORY | push: c %} 
         {% endfor %} 
-    {% endfor %} 
-    {% assign CATEGORY = CATEGORY | uniq %}
+    {% endfor %}
+    <!-- collect tag -->
+    {% assign CATEGORYS = CATEGORY | uniq %}
 
     <!-- tag add -->
-    {% for c in CATEGORY %}
+    {% for c in CATEGORYS %}
 
     <a href="#!" data-base-url="{{site.baseurl}}" class="category">{{c}}</a>
+    <a id="{{c}}">()</a>
+    <br />
+
     {% endfor %}
+
+    <script>
+      var js_categories = {{CATEGORY|split:','|join:','}};
+      var js_category_list = {{CATEGORYS|split:','|join:','}};
+
+      // console.log(js_categories);
+      // console.log(js_category_list);
+
+      let js_category = {};
+      for (var now in js_category_list) {
+        js_category[js_category_list[now]] = 0;
+      }
+      for (var now in js_categories) {
+        var text = js_categories[now];
+        js_category[text] = js_category[text] + 1;
+      }
+      // console.log(js_category);
+      for (var now in js_category) {
+        var text = "(" + js_category[now] + ")";
+        // console.log(text);
+        document.getElementById(now).innerText =text;
+      }
+      //
+    </script>
   </div>
 </section>
