@@ -1,6 +1,6 @@
 ---
 layout: post
-title: tag-collect
+title: add-tag-count
 date: 2024-01-29
 categories: [jekyll, html, javascript]
 ---
