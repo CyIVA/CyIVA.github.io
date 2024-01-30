@@ -28,13 +28,17 @@
       // console.log(js_category_list);
 
       let js_category = {};
-      for (var now in js_category_list) {
-        js_category[js_category_list[now]] = 0;
-      }
-      for (var now in js_categories) {
-        var text = js_categories[now];
-        js_category[text] = js_category[text] + 1;
-      }
+      // js_category를 js_category_list로 초기화
+      js_category_list.forEach(category => {
+        js_category[category] = 0;
+      });
+
+      // js_categories에서 각 카테고리의 발생 횟수 계산
+      js_categories.forEach(category => {
+        if (js_category.hasOwnProperty(category)) {
+          js_category[category]++;
+        }
+      });
       // console.log(js_category);
       for (var now in js_category) {
         var text = "(" + js_category[now] + ")";
