@@ -14,18 +14,13 @@
     <!-- tag add -->
     {% for c in CATEGORYS %}
 
-    <a href="#!" data-base-url="{{site.baseurl}}" class="category">{{c}}</a>
-    <a id="{{c}}">()</a>
-    <br />
-
+    <a href="#!" data-base-url="{{site.baseurl}}" class="category"> {{c}} </a>
+    <div id="{{c}}" class="category_count">()</div>
     {% endfor %}
 
     <script>
       var js_categories = {{CATEGORY|split:','|join:','}};
       var js_category_list = {{CATEGORYS|split:','|join:','}};
-
-      // console.log(js_categories);
-      // console.log(js_category_list);
 
       let js_category = {};
       // js_category를 js_category_list로 초기화
@@ -39,10 +34,8 @@
           js_category[category]++;
         }
       });
-      // console.log(js_category);
       for (var now in js_category) {
         var text = "(" + js_category[now] + ")";
-        // console.log(text);
         document.getElementById(now).innerText =text;
       }
       //
