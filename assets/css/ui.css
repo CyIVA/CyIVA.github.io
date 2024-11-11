@@ -8,7 +8,7 @@
   /* border: none; */
   outline: none;
   border-radius: 30%;
-  background-color: #555;
+  background-color: var(--white-2);
   color: white;
   cursor: pointer;
   padding: 15px;
@@ -16,7 +16,7 @@
 }
 
 #btn-back-to-top:hover {
-  background-color: #333;
+  background-color: var(--white-2);
 }
 
 #angle-up {
