@@ -10,11 +10,12 @@
           <small class="date">{{page.date | date_to_string}}</small>
           <div class="categories">
             {% for c in page.categories %}
-            <a href="#!" class="category">{{c}}</a>
+            <a href="#!" class="category" data-category="{{c}}">{{c}}</a>
             {% endfor %}
           </div>
         </div>
         <div class="content">{{content}}</div>
+        {% include post-nav.html %}
       </section>
       {% include footer.html %}
     </main>

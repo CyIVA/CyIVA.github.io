@@ -1,0 +1,50 @@
+<div class="post-nav">
+  <div class="post-nav-links">
+    {% if page.previous %}
+    <a href="{{ page.previous.url | relative_url }}" class="prev-link">
+      <div class="nav-label">Previous Post</div>
+      <div class="nav-title">← {{ page.previous.title }}</div>
+    </a>
+    {% else %}
+    <div class="prev-link disabled"></div>
+    {% endif %}
+    {% if page.next %}
+    <a href="{{ page.next.url | relative_url }}" class="next-link">
+      <div class="nav-label">Next Post</div>
+      <div class="nav-title">{{ page.next.title }} →</div>
+    </a>
+    {% else %}
+    <div class="next-link disabled"></div>
+    {% endif %}
+  </div>
+
+  <div class="related-posts">
+    <h3>Related Posts</h3>
+    <div class="related-posts-list">
+      {% assign maxRelated = 3 %}
+      {% assign maxRelatedCounter = 0 %}
+      {% for post in site.posts %}
+        {% if post.url != page.url %}
+          {% assign commonCategories = 0 %}
+          {% for category in post.categories %}
+            {% if page.categories contains category %}
+              {% assign commonCategories = commonCategories | plus: 1 %}
+            {% endif %}
+          {% endfor %}
+          
+          {% if commonCategories > 0 and maxRelatedCounter < maxRelated %}
+            <a href="{{ post.url | relative_url }}" class="related-post-card inline-date">
+              <span class="related-post-title">{{ post.title }}</span>
+              <span class="related-post-date">{{ post.date | date_to_string }}</span>
+            </a>
+            {% assign maxRelatedCounter = maxRelatedCounter | plus: 1 %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      
+      {% if maxRelatedCounter == 0 %}
+        <p class="no-related">No related posts found.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>

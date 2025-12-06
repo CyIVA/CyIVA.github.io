@@ -13,12 +13,8 @@ window.addEventListener("scroll", () => {
 
 // 클릭 시 페이지 맨 위로 스크롤 (애니메이션 효과 추가)
 function backToTop() {
-  const position =
-    document.documentElement.scrollTop || document.body.scrollTop;
-  if (position) {
-    window.requestAnimationFrame(() => {
-      window.scrollTo(0, position - position / 10);
-      backToTop();
-    });
-  }
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 }

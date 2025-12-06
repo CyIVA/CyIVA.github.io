@@ -8,7 +8,8 @@ const categories = { {% for category in site.categories %}{% capture category_na
 window.onload = function () {
   document.querySelectorAll(".category").forEach((category) => {
     category.addEventListener("click", function (e) {
-      const posts = categories[e.target.innerText.replace(" ","_")];
+      const categoryName = e.currentTarget.dataset.category;
+      const posts = categories[categoryName.replace(" ", "_")];
       let html = ``
       posts.forEach(post=>{
         html += `
@@ -18,7 +19,7 @@ window.onload = function () {
         </a>
         `
       })
-      document.querySelector("#category-modal-title").innerText = e.target.innerText;
+      document.querySelector("#category-modal-title").innerText = categoryName;
       document.querySelector("#category-modal-content").innerHTML = html;
       document.querySelector("#category-modal-bg").classList.toggle("open");
       document.querySelector("#category-modal").classList.toggle("open");

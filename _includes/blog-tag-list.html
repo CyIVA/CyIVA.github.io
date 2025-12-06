@@ -14,8 +14,9 @@
     <!-- tag add -->
     {% for c in CATEGORYS %}
 
-    <a href="#!" data-base-url="{{site.baseurl}}" class="category"> {{c}} </a>
-    <div id="{{c}}" class="category_count">()</div>
+    <a href="#!" data-base-url="{{site.baseurl}}" class="category" data-category="{{c}}">
+      {{c}} <span id="count-{{c}}" class="category_count"></span>
+    </a>
     {% endfor %}
 
     <script>
@@ -36,7 +37,7 @@
       });
       for (var now in js_category) {
         var text = "(" + js_category[now] + ")";
-        document.getElementById(now).innerText =text;
+        document.getElementById("count-" + now).innerText = text;
       }
       //
     </script>

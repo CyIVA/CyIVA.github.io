@@ -26,13 +26,13 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --gray-1: #3f3f3f;
-    --gray-2: #32353a;
-    --gray-3: #25282c;
-    --gray-4: #151618;
-    --gray-5: #151618;
-    --gray-6: #111111;
-    --white-1: #eeeeee;
-    --white-2: #a9abb3;
+    --gray-2: #3a3a3c;
+    --gray-3: #2c2c2e;
+    --gray-4: #1c1c1e;
+    --gray-5: #1c1c1e;
+    --gray-6: #1c1c1e;
+    --white-1: #f2f2f7;
+    --white-2: #aeaeb2;
   }
 }
 
@@ -50,13 +50,13 @@
 
 [data-theme="dark"] {
   --gray-1: #3f3f3f;
-  --gray-2: #32353a;
-  --gray-3: #25282c;
-  --gray-4: #151618;
-  --gray-5: #151618;
-  --gray-6: #111111;
-  --white-1: #eeeeee;
-  --white-2: #a9abb3;
+  --gray-2: #3a3a3c;
+  --gray-3: #2c2c2e;
+  --gray-4: #1c1c1e;
+  --gray-5: #1c1c1e;
+  --gray-6: #1c1c1e;
+  --white-1: #f2f2f7;
+  --white-2: #aeaeb2;
 }
 
 #category-modal-bg {

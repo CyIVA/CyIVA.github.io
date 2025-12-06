@@ -46,7 +46,7 @@ main {
   justify-content: flex-start;
 }
 .categories .category {
-  margin: 0 0 0 0;
+  margin: 0 0.5rem 0.5rem 0;
   display: block;
   color: var(--gray-4);
   background: var(--white-2);
@@ -57,14 +57,9 @@ main {
   cursor: pointer;
 }
 .categories .category_count {
-  margin: 0 0.5rem 0 0;
-  display: block;
-  color: var(--gray-4);
-  background: var(--white-2);
-  border-radius: 15px;
+  display: inline;
   font-size: 0.7rem;
-  padding: 0 0.4rem;
-  /* line-height: 1.5rem; */
+  margin-left: 0.2rem;
 }
 
 /* header */
@@ -240,4 +235,10 @@ main {
   .articles .article .article-title a {
     font-size: 1rem;
   }
+}
+
+/* Post Navigation */
+@media screen and (max-width: 550px) {
+  /* Staircase logic works fine on mobile too, so no special override needed usually, 
+     but we can ensure full width if desired. Keeping standard flexible behavior. */
 }
