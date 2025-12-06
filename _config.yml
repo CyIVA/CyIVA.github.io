@@ -18,6 +18,8 @@ collections_dir: all_collections
 collections:
   posts:
     output: true
+  history:
+    output: true
 
 defaults:
   - scope:

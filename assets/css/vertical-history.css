@@ -1,0 +1,102 @@
+/* Vertical Multi-Track CSS with Optimized Labels */
+@import 'vertical-history-year.css';
+@import 'vertical-history-now.css';
+@import 'vertical-history-dates.css';
+#vertical-history {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto;
+  min-height: 400px;
+}
+
+/* Background Layers */
+.vh-grid {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%; /* Full width for correct line positioning */
+  z-index: 0;
+}
+
+.vh-grid::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 65%; /* Visual separator at 65% */
+  border-right: 1px dashed var(--gray-3); 
+}
+
+.vh-track-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: var(--gray-2);
+  transform: translateX(-50%);
+}
+
+.vh-connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Capsules */
+.vh-capsule {
+  position: absolute;
+  width: 20px;
+  border-radius: 10px;
+  z-index: 10;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+
+.vh-capsule:hover,
+.vh-capsule.hovered {
+  transform: scaleX(1.3);
+  z-index: 20;
+}
+
+/* Labels */
+.vh-label {
+  position: absolute;
+  transform: translateY(-50%); /* Center on Y point */
+  padding: 4px 0;
+  font-size: 0.85rem;
+  color: var(--white-2);
+  /* white-space: nowrap; */
+  line-height: 1.2;
+  transition: color 0.1s, transform 0.2s;
+  cursor: default;
+}
+
+.vh-label:hover,
+.vh-label.hovered {
+  color: var(--white-1);
+  transform: translateY(-50%) scale(1.1); /* Scale up while keeping centered */
+  transform-origin: left center; /* Scale from left */
+}
+
+@media (max-width: 600px) {
+  #vertical-history {
+      margin: 1rem;
+      /* On mobile, maybe hide labels or shrink? */
+  }
+  .vh-grid {
+      width: 50%;
+  }
+  .vh-label {
+      left: 55% !important; 
+      font-size: 0.7rem;
+  }
+  svg line {
+      x2: 55% !important;
+  }
+}

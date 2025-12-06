@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,300;0,400;0,800;1,100;1,300;1,400;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;300;400;800&display=swap");
 
 * {
   font-family: inherit;
@@ -148,7 +148,7 @@ main {
 .articles .article .article-title a {
   color: var(--white-2);
   font-weight: 100;
-  font-style: italic;
+  font-style: normal;
   font-size: 1.4rem;
   line-height: 130%;
 }

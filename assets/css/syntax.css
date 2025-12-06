@@ -8,7 +8,7 @@
 }
 .highlight .c {
   color: #008800;
-  font-style: italic;
+  font-style: normal;
   /* background-color: #0f140f; */
 } /* Comment */
 .highlight .err {
@@ -38,23 +38,23 @@
 } /* Punctuation */
 .highlight .cm {
   color: #008800;
-  font-style: italic;
+  font-style: normal;
   /* background-color: #0f140f; */
 } /* Comment.Multiline */
 .highlight .cp {
   color: #ff0007;
   font-weight: bold;
-  font-style: italic;
+  font-style: normal;
   /* background-color: #0f140f; */
 } /* Comment.Preproc */
 .highlight .c1 {
   color: #008800;
-  font-style: italic;
+  font-style: normal;
   /* background-color: #0f140f; */
 } /* Comment.Single */
 .highlight .cs {
   color: #008800;
-  font-style: italic;
+  font-style: normal;
   /* background-color: #0f140f; */
 } /* Comment.Special */
 .highlight .gd {

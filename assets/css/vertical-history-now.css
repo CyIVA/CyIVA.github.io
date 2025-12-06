@@ -1,0 +1,24 @@
+/* Now Line */
+.vh-now-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--point-color, #ff4081); /* Use theme point color or fallback */
+  z-index: 2;
+  box-shadow: 0 0 4px rgba(255, 64, 129, 0.4);
+}
+
+.vh-now-label {
+  position: absolute;
+  left: 0; 
+  transform: translate(-105%, -50%);
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--point-color, #ff4081);
+  white-space: nowrap;
+  background: var(--bg-color);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--point-color, #ff4081);
+}

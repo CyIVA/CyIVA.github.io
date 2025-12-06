@@ -1,0 +1,28 @@
+/* Hover Date Labels */
+.vh-date-label {
+  position: absolute;
+  transform: translate(-50%, -50%); /* Center on point */
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none; /* Don't interfere with hover */
+  z-index: 25;
+  white-space: nowrap;
+}
+
+.vh-date-label.visible {
+  opacity: 1;
+}
+
+/* Adjust positions slightly to not overlap the capsule ends immediately */
+.vh-date-end {
+  transform: translate(-50%, -120%); /* Above the top */
+}
+
+.vh-date-start {
+  transform: translate(-50%, 20%); /* Below the bottom */
+}
