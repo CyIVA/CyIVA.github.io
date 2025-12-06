@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 포스트 내비게이션 및 연관 게시글 기능 개발 (Jekyll Liquid & Flexbox)
-date: 2025-12-07
+date: 2025-12-06
 categories: [dev, jekyll, css]
 ---
 
