@@ -27,6 +27,6 @@ categories: [Dev, Blog]
 
 최종적으로 구현된 페이지는 아래와 같다.
 
-[![image.png](https://i.postimg.cc/L4TSnhGY/image.png)](https://postimg.cc/RqNyYCS4)
+![image.png](https://i.postimg.cc/L4TSnhGY/image.png)
 
 이번 리팩토링은 단순한 기능 추가가 아니라, **'데이터를 어떻게 정보로 변환하여 전달할 것인가'**에 대한 고민의 결과다.

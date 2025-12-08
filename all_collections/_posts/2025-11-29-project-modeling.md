@@ -5,7 +5,7 @@ date:   2025-11-29
 categories: [HeimerRuri, Project]
 ---
 
-전처리가 완료된 3D MRI 데이터를 분석하기 위해 본 프로젝트에서는 3차원 합성곱 신경망(3D CNN)을 설계했다. 특히 의료 영상 분야에서 성능이 입증된 ResNet(Residual Network) 구조를 3D로 확장하여 적용했으며, 학습 안정성을 위한 커스텀 콜백(Callback)과 앙상블(Ensemble) 전략을 도입했다. 본 포스트에서는 모델의 구체적인 아키텍처와 학습 전략에 대해 서술한다.
+전처리가 완료된 3D MRI 데이터를 분석하기 위해 본 프로젝트에서는 3차원 합성곱 신경망(3D CNN)을 사용했다. 특히 의료 영상 분야에서 성능이 입증된 ResNet(Residual Network) 구조를 3D로 확장하여 적용했으며, 학습 안정성을 위한 커스텀 콜백(Callback)과 앙상블(Ensemble) 전략을 도입했다. 본 포스트에서는 모델의 구체적인 아키텍처와 학습 전략에 대해 서술한다.
 
 ## 1. 3D ResNet 아키텍처
 
@@ -37,6 +37,27 @@ def build_model(size):
     return Model(inputs, output)
 ```
 
+```python
+# HeimerRuri.ipynb (Define resnet block)
+def resnet_block(input_tensor, filters, kernel_size=3, stride=1, conv_shortcut=False):
+    x = layers.Conv3D(filters, kernel_size, strides=stride, padding='same', use_bias=False)(input_tensor)
+    x = layers.BatchNormalization()(x)
+    x = layers.Activation('relu')(x)
+
+    x = layers.Conv3D(filters, kernel_size, padding='same', use_bias=False)(x)
+    x = layers.BatchNormalization()(x)
+
+    if conv_shortcut:
+        shortcut = layers.Conv3D(filters, 1, strides=stride, use_bias=False)(input_tensor)
+        shortcut = layers.BatchNormalization()(shortcut)
+    else:
+        shortcut = input_tensor
+
+    x = layers.add([x, shortcut])
+    x = layers.Activation('relu')(x)
+    return x
+```
+
 ## 2. 학습 전략: Custom Early Stopping
 
 딥러닝 학습 시 과적합을 막기 위해 조기 종료(Early Stopping)를 사용하는 것은 일반적이다. 그러나 기본 `EarlyStopping` 콜백은 학습 초기의 불안정한 Loss 변동(Fluctuation) 때문에 모델이 충분히 수렴하기도 전에 학습을 멈춰버리는 경우가 잦았다.
@@ -44,6 +65,51 @@ def build_model(size):
 이를 해결하기 위해 **`MinEpochEarlyStopping`** 클래스를 직접 정의하여 적용했다.
 *   **기능**: 지정된 최소 에폭(`min_epoch=30`)까지는 조기 종료를 수행하지 않고 학습을 강제로 진행한다.
 *   **목적**: 초기의 불안정성을 견디고 모델이 충분한 패턴을 학습할 시간을 보장한 뒤, 그 이후부터 Validation Loss가 개선되지 않을 때 멈추게 한다.
+
+### MinEpochEarlyStopping 구현 코드
+
+```python
+class MinEpochEarlyStopping(tf.keras.callbacks.Callback):
+    """
+    최소 에폭 이후에만 조기 종료를 허용하는 경량 콜백
+    """
+    def __init__(self, min_epoch, monitor='val_loss', patience=5, restore_best_weights=True):
+        super().__init__()
+        self.min_epoch = min_epoch
+        self.monitor = monitor
+        self.patience = patience
+        self.restore_best_weights = restore_best_weights
+
+        self.wait = 0
+        self.stopped_epoch = 0
+        self.best = float('inf')
+        self.best_weights = None
+
+    def on_epoch_end(self, epoch, logs=None):
+        current = logs.get(self.monitor)
+        if current is None:
+            return
+
+        if epoch + 1 < self.min_epoch:
+            return  # 최소 에폭 전에는 종료 판단 안 함
+
+        if current < self.best:
+            self.best = current
+            self.wait = 0
+            if self.restore_best_weights:
+                self.best_weights = self.model.get_weights()
+        else:
+            self.wait += 1
+            if self.wait >= self.patience:
+                self.stopped_epoch = epoch + 1
+                self.model.stop_training = True
+                if self.restore_best_weights and self.best_weights is not None:
+                    self.model.set_weights(self.best_weights)
+
+    def on_train_end(self, logs=None):
+        if self.stopped_epoch > 0:
+            print(f"Early stopping triggered at epoch {self.stopped_epoch}")
+```
 
 ## 3. 앙상블 (Ensemble Strategy)
 
