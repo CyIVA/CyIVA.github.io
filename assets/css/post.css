@@ -94,6 +94,7 @@ main {
   padding: 0 0.8rem;
   line-height: 1.3rem;
   cursor: pointer;
+  text-transform: uppercase;
 }
 
 /* markdown content */

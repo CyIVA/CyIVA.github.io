@@ -11,7 +11,7 @@
           <small class="date">{{page.date | date_to_string}}</small>
           <div class="categories">
             {% for c in page.categories %}
-            <a href="#!" class="category" data-category="{{c}}">{{c}}</a>
+            <a href="#!" class="category" data-category="{{c | upcase}}">{{c | upcase}}</a>
             {% endfor %}
           </div>
         </div>

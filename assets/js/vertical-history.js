@@ -258,24 +258,31 @@ document.addEventListener('DOMContentLoaded', () => {
         chartContainer.appendChild(dateEndEl);
         
         // Draw Connection
-        // From: Capsule (l.capsuleRightX %, l.capsuleCenterY %)
-        // To: Label (70%, l.currentYPx)
+        // Logic: Connect label text (at l.currentYPx) to the history capsule.
+        // To improve intuitiveness, we try to keep the line horizontal (same Y).
+        // Clip the Y coordinate to the capsule's top/bottom bounds.
+
+        const capsuleTopPx = (topPercent / 100) * chartHeight;
+        const capsuleBottomPx = ((topPercent + heightPercent) / 100) * chartHeight;
         
+        // Clamp connectionY between capsuleTopPx and capsuleBottomPx
+        // We use Math.min/Max. Note that "Top" in screen coordinates (pixels) is smaller value??
+        // Yes, top: 0 is top of screen.
+        // capsuleTopPx is the visual top edge. capsuleBottomPx is the visual bottom edge.
+        
+        let connectionY = l.currentYPx;
+        if (connectionY < capsuleTopPx) connectionY = capsuleTopPx;
+        if (connectionY > capsuleBottomPx) connectionY = capsuleBottomPx;
+
         const line = document.createElementNS(svgNS, "line");
-        // Coordinates need to be absolute relative to SVG?
-        // SVG is 100% size.
-        // We can use x1="50%" etc.
         
-        // Source
+        // Source (Capsule Side)
         line.setAttribute("x1", `calc(${l.capsuleRightX}% + 12px)`); // Edge of capsule (center + 10px + padding)
-        line.setAttribute("y1", `${l.capsuleCenterY}%`);
+        line.setAttribute("y1", `${connectionY}px`);
         
-        // Target - label is vertically centered at currentYPx usually? 
-        // Our logic placed TOP at currentYPx? No, let's assume currentYPx is Top.
-        // Let's aim for middle of label: currentYPx + height/2
-        
+        // Target (Label Side)
         line.setAttribute("x2", "70%"); // Start of label area
-        line.setAttribute("y2", `${l.currentYPx}px`); // Middle of 24px label
+        line.setAttribute("y2", `${l.currentYPx}px`); // Middle of label
         
         line.setAttribute("stroke", l.color);
         line.setAttribute("stroke-width", "1");
@@ -287,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   function getTrackLeft(index, total) {
-      const widthPerTrack = 60 / total; // Use left 60%
+      const widthPerTrack = 24 / total; // Use left 12% (Reduced from 60% to 20% of original)
       return (index * widthPerTrack) + (widthPerTrack / 2) + 5; // +5% padding from left
   }
   

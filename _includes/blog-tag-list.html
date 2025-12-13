@@ -5,7 +5,8 @@
     {% assign CATEGORY = "" | split: ',' %} 
     {% for post in site.posts %} 
         {% for c in post.categories %} 
-            {% assign CATEGORY = CATEGORY | push: c %} 
+            {% assign c_upper = c | upcase %}
+            {% assign CATEGORY = CATEGORY | push: c_upper %} 
         {% endfor %} 
     {% endfor %}
     <!-- collect tag -->
@@ -20,26 +21,53 @@
     {% endfor %}
 
     <script>
-      var js_categories = {{CATEGORY|split:','|join:','}};
-      var js_category_list = {{CATEGORYS|split:','|join:','}};
-
-      let js_category = {};
-      // js_category를 js_category_list로 초기화
-      js_category_list.forEach(category => {
-        js_category[category] = 0;
+      // Use jsonify for safe array transfer
+      var js_categories = {{ CATEGORY | jsonify }}; 
+      
+      // 1. Calculate counts based on Uppercase keys
+      let categoryCounts = {};
+      js_categories.forEach(category => {
+        let key = category.trim().toUpperCase();
+        if (!categoryCounts[key]) {
+          categoryCounts[key] = 0;
+        }
+        categoryCounts[key]++;
       });
 
-      // js_categories에서 각 카테고리의 발생 횟수 계산
-      js_categories.forEach(category => {
-        if (js_category.hasOwnProperty(category)) {
-          js_category[category]++;
+      // 2. Process DOM elements to dedup and update
+      let processedKeys = new Set();
+      const tagElements = document.querySelectorAll('#tag-list .category');
+
+      tagElements.forEach(el => {
+        let originalCategory = el.getAttribute('data-category');
+        // Handle potential null or empty
+        if (!originalCategory) return;
+        
+        let key = originalCategory.trim().toUpperCase();
+
+        if (processedKeys.has(key)) {
+          // Duplicate! Hide it.
+          el.style.setProperty('display', 'none', 'important');
+        } else {
+          // First time seeing this key. Keep it.
+          processedKeys.add(key);
+          
+          // Update Count
+          let countSpan = el.querySelector('.category_count');
+          if (countSpan) {
+            countSpan.innerText = "(" + categoryCounts[key] + ")";
+          }
+
+          // Update Label to Uppercase
+          // Update only the text node to preserve the span
+          for (let node of el.childNodes) {
+            if (node.nodeType === Node.TEXT_NODE) {
+              node.textContent = key + ' ';
+              break; 
+            }
+          }
         }
       });
-      for (var now in js_category) {
-        var text = "(" + js_category[now] + ")";
-        document.getElementById("count-" + now).innerText = text;
-      }
-      //
     </script>
   </div>
 </section>

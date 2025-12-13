@@ -4,6 +4,7 @@
  * @returns {string} - The generated color in CSS HSL format.
  */
 function stringToColor(str) {
+  str = str.toUpperCase(); // Unify case for color generation
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash);
@@ -40,7 +41,8 @@ function applyCategoryColors() {
   const categories = document.querySelectorAll('.category');
   categories.forEach(cat => {
     // Prefer data-category, fallback to innerText
-    const text = cat.dataset.category ? cat.dataset.category.trim() : cat.innerText.trim();
+    let text = cat.dataset.category ? cat.dataset.category.trim() : cat.innerText.trim();
+    text = text.toUpperCase(); // Normalize to uppercase for consistent coloring
     // Generate color
     let hash = 0;
     for (let i = 0; i < text.length; i++) {

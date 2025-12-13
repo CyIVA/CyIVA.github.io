@@ -15,8 +15,8 @@
           <small class="date">{{post.date | date_to_string}}</small>
           <div class="categories">
             {% for c in post.categories %}
-            <a href="#!" data-base-url="{{site.baseurl}}" class="category" data-category="{{c}}"
-              >{{c}}</a
+            <a href="#!" data-base-url="{{site.baseurl}}" class="category" data-category="{{c | upcase}}"
+              >{{c | upcase}}</a
             >
             {% endfor %}
           </div>
