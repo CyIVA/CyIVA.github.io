@@ -1,6 +1,3 @@
----
-trigger: always_on
----
 
 Antigravity 프로젝트 규칙 및 가이드라인
 
