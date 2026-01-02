@@ -14,11 +14,10 @@
 }
 html,
 body {
-  color: var(--white-2);
-  background-color: var(--gray-6);
+  color: var(--text-200);
+  background-color: var(--bg-100);
   font-family: "JetBrains Mono", monospace;
   line-height: 2rem;
-  background-color: var(--gray-5);
 }
 header {
   padding: 2rem 0 4rem 0;
@@ -32,7 +31,7 @@ header .site-title {
   font-size: 4rem;
   font-weight: bolder;
   line-height: 110%;
-  color: var(--white-1);
+  color: var(--text-100);
 }
 main {
   margin: 0 auto;
@@ -48,8 +47,8 @@ main {
 .categories .category {
   margin: 0 0.5rem 0.5rem 0;
   display: block;
-  color: var(--gray-4);
-  background: var(--white-2);
+  color: var(--bg-100);
+  background: var(--text-200);
   border-radius: 15px;
   font-size: 0.7rem;
   padding: 0 0.8rem;
@@ -140,13 +139,13 @@ main {
 }
 .articles .article {
   padding: 2rem;
-  background: var(--gray-3);
+  background: var(--bg-200);
   border-radius: 15px;
   transition: all 0.2s ease-in-out;
 }
 .articles .article .article-title,
 .articles .article .article-title a {
-  color: var(--white-2);
+  color: var(--text-200);
   font-weight: 100;
   font-style: normal;
   font-size: 1.4rem;
@@ -168,8 +167,8 @@ main {
 .articles .article .categories .category {
   margin: 0 0.5rem 0.3rem 0;
   display: block;
-  color: var(--gray-4);
-  background: var(--white-2);
+  color: var(--bg-100);
+  background: var(--text-200);
   border-radius: 15px;
   font-size: 0.7rem;
   padding: 0 0.8rem;

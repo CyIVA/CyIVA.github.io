@@ -1,7 +1,6 @@
 /* Vertical Multi-Track CSS with Optimized Labels */
-@import 'vertical-history-year.css';
-@import 'vertical-history-now.css';
-@import 'vertical-history-dates.css';
+
+/* #region Main Layout */
 #vertical-history {
   position: relative;
   width: 100%;
@@ -25,8 +24,10 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 65%; /* Visual separator at 65% */
-  border-right: 1px dashed var(--gray-3); 
+  /* Use CSS variable set by JS, default to 65% */
+  left: var(--vh-separator-pos, 65%); 
+  border-right: 1px dashed var(--bg-200); 
+  transition: left 0.3s ease; /* Smooth transition on resize */
 }
 
 .vh-track-line {
@@ -34,7 +35,7 @@
   top: 0;
   bottom: 0;
   width: 1px;
-  background-color: var(--gray-2);
+  background-color: var(--bg-300);
   transform: translateX(-50%);
 }
 
@@ -55,7 +56,7 @@
   border-radius: 10px;
   z-index: 10;
   box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-  transition: transform 0.2s;
+  transition: transform 0.2s, left 0.3s ease; /* Animate repositioning */
 }
 
 .vh-capsule:hover,
@@ -69,17 +70,17 @@
   position: absolute;
   transform: translateY(-50%); /* Center on Y point */
   padding: 4px 0;
-  font-size: 0.85rem;
-  color: var(--white-2);
+  /* font-size: 0.85rem;  <-- Handled by JS now */
+  color: var(--text-200);
   /* white-space: nowrap; */
   line-height: 1.2;
-  transition: color 0.1s, transform 0.2s;
+  transition: color 0.1s, transform 0.2s, left 0.3s ease;
   cursor: default;
 }
 
 .vh-label:hover,
 .vh-label.hovered {
-  color: var(--white-1);
+  color: var(--text-100);
   transform: translateY(-50%) scale(1.1); /* Scale up while keeping centered */
   transform-origin: left center; /* Scale from left */
 }
@@ -87,16 +88,85 @@
 @media (max-width: 600px) {
   #vertical-history {
       margin: 1rem;
-      /* On mobile, maybe hide labels or shrink? */
-  }
-  .vh-grid {
-      width: 50%;
-  }
-  .vh-label {
-      left: 55% !important; 
-      font-size: 0.7rem;
-  }
-  svg line {
-      x2: 55% !important;
   }
 }
+/* #endregion */
+
+/* #region Year Markers */
+.vh-year-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--bg-300);
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.vh-year-label {
+  position: absolute;
+  left: 0; 
+  transform: translate(-120%, -50%); /* Move left outside grid and center Y */
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text-200);
+  opacity: 0.6;
+}
+/* #endregion */
+
+/* #region Now Line */
+.vh-now-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--point-color, #ff4081); /* Use theme point color or fallback */
+  z-index: 2;
+  box-shadow: 0 0 4px rgba(255, 64, 129, 0.4);
+}
+
+.vh-now-label {
+  position: absolute;
+  left: 0; 
+  transform: translate(-105%, -50%);
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--point-color, #ff4081);
+  white-space: nowrap;
+  background: var(--bg-100);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--point-color, #ff4081);
+}
+/* #endregion */
+
+/* #region Date Labels */
+/* Hover Date Labels */
+.vh-date-label {
+  position: absolute;
+  transform: translate(-50%, -50%); /* Center on point */
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none; /* Don't interfere with hover */
+  z-index: 25;
+  white-space: nowrap;
+}
+
+.vh-date-label.visible {
+  opacity: 1;
+}
+
+/* Adjust positions slightly to not overlap the capsule ends immediately */
+.vh-date-end {
+  transform: translate(-50%, -120%); /* Above the top */
+}
+
+.vh-date-start {
+  transform: translate(-50%, 20%); /* Below the bottom */
+}
+/* #endregion */

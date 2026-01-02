@@ -14,11 +14,10 @@
 }
 html,
 body {
-  color: var(--white-2);
-  background-color: var(--gray-6);
+  color: var(--text-200);
+  background-color: var(--bg-100);
   font-family: "JetBrains Mono", monospace;
   line-height: 2rem;
-  background-color: var(--gray-5);
 }
 .content a {
   color: cyan;
@@ -54,7 +53,7 @@ header {
   font-size: 1.4rem;
   font-weight: bolder;
   line-height: 110%;
-  color: var(--white-1);
+  color: var(--text-100);
 }
 main {
   margin: 0 auto;
@@ -87,8 +86,8 @@ main {
 .categories .category {
   margin: 0 0.5rem 0 0;
   display: block;
-  color: var(--gray-4);
-  background: var(--white-2);
+  color: var(--bg-100);
+  background: var(--text-200);
   border-radius: 15px;
   font-size: 0.7rem;
   padding: 0 0.8rem;
@@ -137,10 +136,13 @@ main {
   margin-bottom: 1.75rem;
   font-style: normal;
   font-weight: 100;
-  border-left: 0.3rem solid var(--white-2);
+  border-left: 0.3rem solid var(--text-200);
 }
 .content strong {
   font-weight: bold;
+  background: var(--bg-200);
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
 }
 .content ul {
   margin-left: 1rem;
@@ -162,12 +164,12 @@ main {
   border-collapse: collapse;
 }
 .content table th {
-  background-color: var(--gray-3);
-  color: var(--white-2);
-  border: 1px solid var(--gray-5);
+  background-color: var(--bg-200);
+  color: var(--text-200);
+  border: 1px solid var(--bg-100);
 }
 .content table * {
-  border: 1px solid var(--gray-3);
+  border: 1px solid var(--bg-200);
   padding: 0.2rem;
 }
 .content img {
@@ -187,39 +189,37 @@ main {
 }
 
 .content pre {
-  background: var(--gray-3);
+  background: var(--bg-200);
   padding: 1rem 2rem;
   margin-bottom: 1.75rem;
 }
 
 .content code {
   padding: 3px 5px;
-  color: var(--white-2);
+  color: var(--text-200);
   white-space: pre;
-  background: var(--gray-3);
+  background: var(--bg-200);
 }
 
 @media (prefers-color-scheme: light) {
-  .content code,
   .content pre {
-    color: var(--gray-5);
-    background: var(--gray-2_5) !important;
+    color: var(--bg-100);
+    background: var(--primary-300) !important;
   }
 }
 
 [data-theme="light"] {
-  .content code,
   .content pre {
-    color: var(--gray-5);
-    background: var(--gray-2_5) !important;
+    color: var(--bg-100);
+    background: var(--primary-300) !important;
   }
 }
 
 [data-theme="dark"] {
   .content code,
   .content pre {
-    color: var(--white-2);
-    background: var(--gray-3);
+    color: var(--text-200);
+    background: var(--bg-200);
   }
 }
 
@@ -264,7 +264,7 @@ main {
 .post-nav {
   margin-top: 4rem;
   padding-top: 2rem;
-  border-top: 1px solid var(--gray-3);
+  border-top: 1px solid var(--bg-200);
   width: 100%;
 }
 
@@ -281,7 +281,7 @@ main {
 .post-nav-links .disabled {
   flex: 1;
   padding: 1rem;
-  background: var(--gray-3);
+  background: var(--bg-200);
   border-radius: 8px;
   transition: background 0.2s ease;
   display: flex;
@@ -299,7 +299,7 @@ main {
 
 /* Hover States - Mode Specific */
 .post-nav-links a:hover {
-  background: var(--gray-2); /* Default (Dark Mode fallbacks included in var) */
+  background: var(--bg-300); /* Default (Dark Mode fallbacks included in var) */
 }
 
 /* Explicit Light Mode Override */
@@ -318,13 +318,13 @@ main {
 /* Explicit Dark Mode Override (Restoring previous behavior if vars changed) */
 [data-theme="dark"] {
   .post-nav-links a:hover {
-    background: var(--gray-2);
+    background: var(--bg-300);
   }
 }
 
 .post-nav-links .nav-label {
   font-size: 0.75rem;
-  color: var(--white-2);
+  color: var(--text-200);
   margin-bottom: 0.3rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -332,7 +332,7 @@ main {
 
 .post-nav-links .nav-title {
   font-size: 0.95rem;
-  color: var(--white-1);
+  color: var(--text-100);
   font-weight: 500;
   line-height: 1.3;
 }
@@ -340,9 +340,9 @@ main {
 /* Related Posts */
 .related-posts h3 {
   font-size: 1.2rem;
-  color: var(--white-1);
+  color: var(--text-100);
   margin-bottom: 3rem;
-  border-left: 4px solid var(--white-2);
+  border-left: 4px solid var(--text-200);
   padding-left: 0.8rem;
 }
 
@@ -354,7 +354,7 @@ main {
 
 .related-post-card {
   padding-bottom: 1.5rem;
-  border-bottom: 1px dashed var(--white-2);
+  border-bottom: 1px dashed var(--text-200);
   display: block;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -366,11 +366,11 @@ main {
 
 .related-post-card:hover {
   padding-left: 1rem;
-  border-color: var(--white-1);
+  border-color: var(--text-100);
 }
 
 .related-post-title {
-  color: var(--white-1);
+  color: var(--text-100);
   font-size: 1.1rem;
   line-height: 1.4;
   font-weight: normal;
@@ -379,16 +379,14 @@ main {
 }
 
 .related-post-date {
-  color: var(--white-2);
+  color: var(--text-200);
   font-size: 0.85rem;
   display: block; /* Force new line */
   margin-left: 0; /* Remove left margin since it is now on a new line */
 }
 
 .no-related {
-  color: var(--white-2);
+  color: var(--text-200);
   font-style: normal;
   font-size: 0.9rem;
 }
-
-
