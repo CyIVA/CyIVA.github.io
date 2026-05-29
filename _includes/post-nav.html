@@ -1,50 +1,69 @@
-<div class="post-nav">
-  <div class="post-nav-links">
-    {% if page.previous %}
-    <a href="{{ page.previous.url | relative_url }}" class="prev-link">
-      <div class="nav-label">Previous Post</div>
-      <div class="nav-title">← {{ page.previous.title }}</div>
-    </a>
-    {% else %}
-    <div class="prev-link disabled"></div>
-    {% endif %}
-    {% if page.next %}
-    <a href="{{ page.next.url | relative_url }}" class="next-link">
-      <div class="nav-label">Next Post</div>
-      <div class="nav-title">{{ page.next.title }} →</div>
-    </a>
-    {% else %}
-    <div class="next-link disabled"></div>
-    {% endif %}
-  </div>
+<div class="post-navigation-cards">
+  {% if page.previous %}
+  <a href="{{site.baseurl}}{{page.previous.url}}" class="nav-card prev-card">
+    <span class="nav-direction">← PREVIOUS</span>
+    <span class="nav-title">{{page.previous.title}}</span>
+  </a>
+  {% else %}
+  <div class="nav-placeholder"></div>
+  {% endif %}
 
-  <div class="related-posts">
-    <h3>Related Posts</h3>
-    <div class="related-posts-list">
-      {% assign maxRelated = 3 %}
-      {% assign maxRelatedCounter = 0 %}
-      {% for post in site.posts %}
-        {% if post.url != page.url %}
-          {% assign commonCategories = 0 %}
-          {% for category in post.categories %}
-            {% if page.categories contains category %}
-              {% assign commonCategories = commonCategories | plus: 1 %}
-            {% endif %}
-          {% endfor %}
-          
-          {% if commonCategories > 0 and maxRelatedCounter < maxRelated %}
-            <a href="{{ post.url | relative_url }}" class="related-post-card inline-date">
-              <span class="related-post-title">{{ post.title }}</span>
-              <span class="related-post-date">{{ post.date | date_to_string }}</span>
-            </a>
-            {% assign maxRelatedCounter = maxRelatedCounter | plus: 1 %}
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-      
-      {% if maxRelatedCounter == 0 %}
-        <p class="no-related">No related posts found.</p>
-      {% endif %}
-    </div>
-  </div>
+  {% if page.next %}
+  <a href="{{site.baseurl}}{{page.next.url}}" class="nav-card next-card">
+    <span class="nav-direction">NEXT ARTICLE →</span>
+    <span class="nav-title">{{page.next.title}}</span>
+  </a>
+  {% endif %}
 </div>
+
+<style>
+.post-navigation-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.nav-card {
+  background: var(--bg-200);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.nav-card:hover {
+  background: var(--bg-300);
+  border-color: var(--primary-100);
+  transform: translateY(-2px);
+}
+
+.nav-direction {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-300);
+  letter-spacing: 1px;
+}
+
+.nav-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-100);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.prev-card { text-align: left; }
+.next-card { text-align: right; }
+
+@media (max-width: 600px) {
+  .post-navigation-cards {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

@@ -1,9 +1,24 @@
-<nav id="top-nav">
+<nav class="bottom-nav">
   <div class="nav-container">
-    <a href="{{site.baseurl}}/" class="nav-item {% if page.url == '/' %}active{% endif %}">Home</a>
-    <a href="{{site.baseurl}}/" class="nav-item {% if page.url == '/' or page.layout == 'post' %}active{% endif %}">Post</a>
-    <a href="{{site.baseurl}}/history" class="nav-item {% if page.layout == 'history' %}active{% endif %}">History</a>
-    <a href="{{site.baseurl}}/project" class="nav-item {% if page.layout == 'project' %}active{% endif %}">Project</a>
-    <a href="{{site.baseurl}}/about" class="nav-item {% if page.url == '/about/' %}active{% endif %}">About</a>
+    <a href="{{site.baseurl}}/" class="nav-item {% if page.url == '/' %}active{% endif %}">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="{{site.baseurl}}/" class="nav-item {% if page.url == '/' or page.layout == 'post' %}active{% endif %}">
+      <span class="nav-icon">📝</span>
+      <span class="nav-label">Blog</span>
+    </a>
+    <a href="{{site.baseurl}}/project" class="nav-item {% if page.layout == 'project' %}active{% endif %}">
+      <span class="nav-icon">💼</span>
+      <span class="nav-label">Work</span>
+    </a>
+    <a href="{{site.baseurl}}/history" class="nav-item {% if page.layout == 'history' %}active{% endif %}">
+      <span class="nav-icon">⏳</span>
+      <span class="nav-label">History</span>
+    </a>
+    <a href="{{site.baseurl}}/about" class="nav-item {% if page.url == '/about/' %}active{% endif %}">
+      <span class="nav-icon">👤</span>
+      <span class="nav-label">Profile</span>
+    </a>
   </div>
 </nav>

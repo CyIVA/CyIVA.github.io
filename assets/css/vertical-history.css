@@ -1,172 +1,188 @@
-/* Vertical Multi-Track CSS with Optimized Labels */
+.history-page {
+  padding-bottom: 8rem;
+}
 
-/* #region Main Layout */
-#vertical-history {
+.history-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.history-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--primary-100);
+  background: rgba(58, 134, 255, 0.1);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  letter-spacing: 1px;
+}
+
+.history-header h1 {
+  font-size: 3rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.history-header p {
+  color: var(--text-200);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Timeline Layout */
+.timeline-container {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--gradient-primary);
+  transform: translateX(-50%);
+  opacity: 0.3;
+}
+
+.timeline-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.timeline-item {
   position: relative;
   width: 100%;
-  max-width: 900px;
-  margin: 2rem auto;
-  min-height: 400px;
+  display: flex;
+  justify-content: flex-end; /* Mobile default */
 }
 
-/* Background Layers */
-.vh-grid {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%; /* Full width for correct line positioning */
-  z-index: 0;
-}
-
-.vh-grid::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  /* Use CSS variable set by JS, default to 65% */
-  left: var(--vh-separator-pos, 65%); 
-  border-right: 1px dashed var(--bg-200); 
-  transition: left 0.3s ease; /* Smooth transition on resize */
-}
-
-.vh-track-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background-color: var(--bg-300);
-  transform: translateX(-50%);
-}
-
-.vh-connections {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 5;
-  pointer-events: none;
-}
-
-/* Capsules */
-.vh-capsule {
-  position: absolute;
-  width: 20px;
-  border-radius: 10px;
-  z-index: 10;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-  transition: transform 0.2s, left 0.3s ease; /* Animate repositioning */
-}
-
-.vh-capsule:hover,
-.vh-capsule.hovered {
-  transform: scaleX(1.3);
-  z-index: 20;
-}
-
-/* Labels */
-.vh-label {
-  position: absolute;
-  transform: translateY(-50%); /* Center on Y point */
-  padding: 4px 0;
-  /* font-size: 0.85rem;  <-- Handled by JS now */
-  color: var(--text-200);
-  /* white-space: nowrap; */
-  line-height: 1.2;
-  transition: color 0.1s, transform 0.2s, left 0.3s ease;
-  cursor: default;
-}
-
-.vh-label:hover,
-.vh-label.hovered {
-  color: var(--text-100);
-  transform: translateY(-50%) scale(1.1); /* Scale up while keeping centered */
-  transform-origin: left center; /* Scale from left */
-}
-
-@media (max-width: 600px) {
-  #vertical-history {
-      margin: 1rem;
+/* Desktop alternating */
+@media (min-width: 768px) {
+  .timeline-item:nth-child(even) {
+    justify-content: flex-start;
   }
 }
-/* #endregion */
 
-/* #region Year Markers */
-.vh-year-line {
+.timeline-node {
   position: absolute;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background-color: var(--bg-300);
-  opacity: 0.3;
-  z-index: 1;
-}
-
-.vh-year-label {
-  position: absolute;
-  left: 0; 
-  transform: translate(-120%, -50%); /* Move left outside grid and center Y */
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: var(--text-200);
-  opacity: 0.6;
-}
-/* #endregion */
-
-/* #region Now Line */
-.vh-now-line {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--point-color, #ff4081); /* Use theme point color or fallback */
-  z-index: 2;
-  box-shadow: 0 0 4px rgba(255, 64, 129, 0.4);
-}
-
-.vh-now-label {
-  position: absolute;
-  left: 0; 
-  transform: translate(-105%, -50%);
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: var(--point-color, #ff4081);
-  white-space: nowrap;
+  left: 50%;
+  top: 2rem;
+  width: 16px;
+  height: 16px;
   background: var(--bg-100);
-  padding: 2px 6px;
-  border-radius: 4px;
-  border: 1px solid var(--point-color, #ff4081);
+  border: 3px solid var(--primary-100);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  box-shadow: 0 0 10px var(--primary-100);
 }
-/* #endregion */
 
-/* #region Date Labels */
-/* Hover Date Labels */
-.vh-date-label {
+.timeline-date {
   position: absolute;
-  transform: translate(-50%, -50%); /* Center on point */
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  padding: 2px 6px;
+  left: 50%;
+  top: 2rem;
+  transform: translate(-50%, -180%);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-300);
+}
+
+.timeline-card {
+  width: 42%;
+  background: var(--bg-200);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: 16px;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.timeline-card:hover {
+  border-color: var(--primary-100);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Connector Arrows (Speech bubble style) */
+.timeline-card::after {
+  content: '';
+  position: absolute;
+  top: 2rem;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  transform: translateY(-50%);
+}
+
+.timeline-item:nth-child(odd) .timeline-card::after {
+  left: -10px;
+  border-right: 10px solid var(--primary-100);
+}
+
+.timeline-item:nth-child(even) .timeline-card::after {
+  right: -10px;
+  border-left: 10px solid var(--primary-100);
+}
+
+.milestone-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.milestone-org {
+  font-size: 0.9rem;
+  color: var(--primary-100);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.milestone-desc {
+  font-size: 0.9rem;
+  color: var(--text-200);
+}
+
+.milestone-tags {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.m-tag {
+  font-size: 0.7rem;
+  background: var(--bg-300);
+  padding: 0.2rem 0.5rem;
   border-radius: 4px;
-  font-size: 0.75rem;
-  opacity: 0;
-  transition: opacity 0.2s;
-  pointer-events: none; /* Don't interfere with hover */
-  z-index: 25;
-  white-space: nowrap;
+  color: var(--text-300);
 }
 
-.vh-date-label.visible {
-  opacity: 1;
+/* Mobile Adjustments */
+@media (max-width: 767px) {
+  .timeline-line {
+    left: 20px;
+  }
+  .timeline-node {
+    left: 20px;
+  }
+  .timeline-date {
+    left: 50px;
+    transform: translateY(-180%);
+  }
+  .timeline-item {
+    justify-content: flex-end;
+  }
+  .timeline-card {
+    width: calc(100% - 60px);
+  }
+  .timeline-card::after {
+    left: -10px !important;
+    right: auto !important;
+    border-right: 10px solid var(--primary-100) !important;
+    border-left: none !important;
+  }
 }
-
-/* Adjust positions slightly to not overlap the capsule ends immediately */
-.vh-date-end {
-  transform: translate(-50%, -120%); /* Above the top */
-}
-
-.vh-date-start {
-  transform: translate(-50%, 20%); /* Below the bottom */
-}
-/* #endregion */
