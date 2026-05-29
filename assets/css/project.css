@@ -1,0 +1,122 @@
+.project-page {
+  padding-bottom: 8rem;
+}
+
+.project-header {
+  margin-bottom: 2rem;
+}
+
+.project-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.project-header p {
+  color: var(--text-200);
+}
+
+.project-filters {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filter-btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  background: var(--bg-200);
+  border: 1px solid var(--border-color);
+  color: var(--text-200);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn.active {
+  background: var(--primary-100);
+  color: white;
+  border-color: var(--primary-100);
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  background: var(--bg-200);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--primary-100);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.project-image {
+  height: 200px;
+  background: var(--bg-300); /* Placeholder */
+  position: relative;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-info {
+  padding: 1.5rem;
+}
+
+.project-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.project-desc {
+  font-size: 0.9rem;
+  color: var(--text-200);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.project-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.project-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  background: var(--bg-300);
+  border-radius: 4px;
+  color: var(--text-300);
+}
+
+.project-status {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  background: rgba(11, 13, 19, 0.8);
+}
+
+.status-live { color: #27AE60; }
+.status-beta { color: #F2994A; }

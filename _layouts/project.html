@@ -2,27 +2,43 @@
 <html lang="en">
   {% include head.html %}
   <body>
-    {% include nav.html %}
-    <main>
-      {% include header.html %}
-      <div class="content">
-        <h1>Projects</h1>
-        <ul class="post-list">
-          {% for project in site.projects %}
-            <li>
-              <h2>
-                <a class="post-link" href="{{ project.url | relative_url }}">{{ project.title }}</a>
-              </h2>
-              <span class="post-meta">{{ project.date | date: "%b %-d, %Y" }}</span>
-              {% if project.description %}
-              <p>{{ project.description }}</p>
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
+    {% include header.html %}
+    <main class="page-container project-page">
+      <header class="project-header">
+        <h1>Selected Works</h1>
+        <p>Building the future of digital architecture.</p>
+      </header>
+
+      <nav class="project-filters">
+        <button class="filter-btn active">All Projects</button>
+        <button class="filter-btn">Web3</button>
+        <button class="filter-btn">AI / ML</button>
+        <button class="filter-btn">Mobile</button>
+      </nav>
+
+      <div class="project-grid">
+        {% for project in site.projects %}
+        <article class="project-card">
+          <div class="project-image">
+            {% if project.image %}
+            <img src="{{project.image}}" alt="{{project.title}}" />
+            {% endif %}
+            <span class="project-status status-live">● Live</span>
+          </div>
+          <div class="project-info">
+            <h2 class="project-title">{{ project.title }}</h2>
+            <p class="project-desc">{{ project.description }}</p>
+            <div class="project-tags">
+              {% for tag in project.tags %}
+              <span class="project-tag">{{tag}}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </article>
+        {% endfor %}
       </div>
-      {% include footer.html %}
     </main>
+    {% include nav.html %}
     {% include category-modal.html %}{% include ui.html %}
   </body>
 </html>
