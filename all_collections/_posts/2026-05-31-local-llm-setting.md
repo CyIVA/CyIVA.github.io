@@ -5,19 +5,14 @@ date: 2026-05-31
 categories: [Dev, Blog]
 ---
 
-Ollama + VS Code + Continue.dev 조합으로 개발 전용 AI를 구성하고자 한다.
+LM studio + VS Code + Continue.dev 조합으로 개발 전용 AI를 구성하고자 한다.
 
-### 1. Ollama 설치 및 모델 받기
+### 1. LM studio 설치 및 모델 받기
 
-[Ollama 공식 홈페이지](https://ollama.com/)에서 사용할 환경에 맞추어서 설치를 진행
+[LM studio 공식 홈페이지](https://lmstudio.ai/)에서 사용할 환경에 맞추어서 설치를 진행
 
-설치가 완료되면 터미널에 아래 명령을 입력해 사용할 모델을 설치
-
-```
-ollama run qwen2.5-coder:7b
-```
-
-이번에 사용할 모델은 qwen2.5-coder을 사용한다.
+설치가 완료되면 GUI를 이용해서 원하는 모델을 추가할수 있다.
+이번에는 **gemma-4-e4b**라는 모델을 사용하고자 한다.
 
 ### 2. VS Code에 Continue 확장 프로그램 설치 및 연결
 
@@ -26,35 +21,30 @@ ollama run qwen2.5-coder:7b
 VS code의 Extensions에서 Continue을 설치
 Continue을 설치되면 VSC의 좌측에 Continue 아이콘이 나타난것을 확인 가능하다.
 
-Continue탭에서 models -> 우측 + 아이콘 으로 진입한 이후, Ollama선택후 model에 autodetect를 하여 연결이 가능하다.
+Continue탭에서 models -> 우측 + 아이콘 으로 진입한 이후, LM studio 선택후 model에 autodetect를 하여 연결이 가능하다.
 
-개발자에게 '이력(History)'은 단순한 나열이 아니라, 기술적 성장의 궤적이다. 기존의 단순 리스트 형태는 프로젝트 간의 시간적 관계나 병렬로 진행된 작업의 밀도를 보여주기에 역부족이었다. 이를 해결하기 위해 시간의 흐름을 시각적으로 조망할 수 있는 **버티컬 멀티트랙(Vertical Multi-track)** 인터페이스를 구현했다.
+또한 기본 세팅으로는 자동완성이 적용되지 않기때문에 config.yaml을 수정해 자동완성을 추가 하였다.
+아래는 실제 사용한 내용이다.
 
-### 1. 시각화의 본질: 시간과 밀도의 표현
+```
+name: Local Config
+version: 1.0.0
+schema: v1
 
-단순히 프로젝트를 시작일 순으로 정렬하는 것만으로는 "이 시기에 얼마나 바빴는가?" 혹은 "어떤 기술 스택을 동시에 다루었는가?"를 파악하기 어렵다.
-이를 해결하기 위해 **트랙 패킹(Track Packing)** 알고리즘을 도입했다. 시간이 겹치는 프로젝트는 자동으로 옆 트랙으로 밀려나게 하여, 시각적 간섭을 없애면서도 병렬 수행 여부를 직관적으로 보여주도록 했다.
+models:
+  - name: gemma
+    provider: lmstudio
+    model: google/gemma-4-e4b
+    apiBase: http://localhost:1234/v1/
+    capabilities:
+      - tool_use
 
-### 2. 레이블 충돌 문제와 해결 (Collision Resolution)
+  - name: gemma
+    provider: lmstudio
+    roles:
+      - autocomplete
+    model: google/gemma-4-e4b
+    apiBase: http://localhost:1234/v1/
+```
 
-버티컬 타임라인의 최대 난제는 텍스트 가독성이다. 프로젝트 바 위나 옆에 단순히 이름을 적으면, 프로젝트가 밀집된 구간에서 글자가 겹쳐 읽을 수 없게 된다.
-이를 해결하기 위해 **'충돌 방지 알고리즘'**을 적용했다.
-
-1.  레이블을 프로젝트 바에서 분리하여 우측 전용 공간에 배치한다.
-2.  레이블끼리의 수직 위치를 계산하여 겹치면 아래로 밀어낸다.
-3.  원래 위치(프로젝트 바)와 이동된 위치(레이블)를 **SVG 베지에 곡선(Connector)**으로 연결하여 시각적 연관성을 유지한다.
-
-### 3. 미래 지향적 시간 축 (Future -> Past)
-
-일반적인 타임라인은 과거에서 시작해 아래로 내려갈수록 최신이 되는 경우가 많다. 하지만 포트폴리오 성격의 페이지에서는 **'가장 최신의 성과'**가 가장 먼저 보여야 한다.
-따라서 시간 축을 역전시켜 페이지 상단이 '현재(미래)'가 되도록 배치했다. 또한 `NOW` 라인을 동적으로 계산하여 붉은색 실선으로 표시함으로써, 현재 진행 중인 프로젝트와 완료된 프로젝트의 경계를 명확히 했다.
-
-### 4. 감성적 UX: 파스텔 톤과 인터랙션
-
-딱딱한 데이터 시각화를 피하기 위해, 문자열 해싱을 통한 **파스텔 톤(Pastel Tone)** 자동 배색을 적용했다. 또한 사용자가 특정 프로젝트에 집중할 수 있도록, 바(Bar)나 레이블(Label) 중 하나만 호버(Hover)해도 양쪽이 동시에 강조(`Scale Up` + `Highlight`)되는 양방향 인터랙션을 구현했다.
-
-최종적으로 구현된 페이지는 아래와 같다.
-
-![image.png](https://i.postimg.cc/L4TSnhGY/image.png)
-
-이번 리팩토링은 단순한 기능 추가가 아니라, **'데이터를 어떻게 정보로 변환하여 전달할 것인가'**에 대한 고민의 결과다.
+config.yaml을 보면 자동완성과 tool-use를 다른 모델에 할당한것을 볼수 있는데, autocomplete에 더 낮은 사양의 모델을 넣어도 autocomplete의 기능을 수행하는것에는 무리가 없기때문에 vram에 따라서 조절해도 무방하다.
