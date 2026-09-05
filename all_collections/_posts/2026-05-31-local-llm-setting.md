@@ -1,5 +1,4 @@
 ---
-layout: post
 title: 로컬 LLM 세팅
 date: 2026-05-31
 categories: [Dev, Blog]

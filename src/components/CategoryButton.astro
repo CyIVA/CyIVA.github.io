@@ -1,0 +1,21 @@
+---
+import { categoryDialogId, categoryLabel } from '../lib/content';
+
+interface Props {
+  category: string;
+  count?: number;
+}
+
+const { category, count } = Astro.props;
+const dialogId = categoryDialogId(category);
+---
+
+<a
+  class="tag category-button"
+  href={`/posts/#list-${dialogId}`}
+  data-category-target={dialogId}
+  aria-haspopup="dialog"
+  aria-controls={dialogId}
+>
+  <strong>{categoryLabel(category)}</strong>{typeof count === 'number' && <span>{count}</span>}
+</a>

@@ -1,0 +1,57 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryButton from '../../components/CategoryButton.astro';
+import CategoryDialogs from '../../components/CategoryDialogs.astro';
+import { formatDate, postSlug, sortPosts, type Post } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const posts = sortPosts(await getCollection('posts'));
+  return posts.map((post, index) => ({
+    params: { slug: postSlug(post) },
+    props: {
+      post,
+      previous: index < posts.length - 1 ? posts[index + 1] : null,
+      next: index > 0 ? posts[index - 1] : null,
+    },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+  previous: Post | null;
+  next: Post | null;
+}
+
+const { post, previous, next } = Astro.props;
+const { Content } = await render(post);
+const allPosts = sortPosts(await getCollection('posts'));
+---
+
+<BaseLayout title={post.data.title} description={`${formatDate(post.data.date)}에 작성한 개발 기록`}>
+  <div class="page-shell">
+    <header class="page-head article-head">
+      <a class="eyebrow" href="/posts/">Writing /</a>
+      <h1>{post.data.title}</h1>
+      <div class="article-meta">
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        <div class="tag-list">
+          {post.data.categories.map((category) => <CategoryButton category={category} />)}
+        </div>
+      </div>
+    </header>
+    <article class="prose"><Content /></article>
+    <nav class="article-nav" aria-label="이전 및 다음 글">
+      {previous ? <a href={`/posts/${postSlug(previous)}/`}><span>이전 글</span>{previous.data.title}</a> : <span></span>}
+      {next && <a href={`/posts/${postSlug(next)}/`}><span>다음 글</span>{next.data.title}</a>}
+    </nav>
+  </div>
+  <CategoryDialogs posts={allPosts} currentPostId={post.id} />
+</BaseLayout>
+
+<style>
+  .article-head { max-width: 900px; padding-top: 96px; }
+  .article-head h1 { max-width: 900px; font-size: clamp(2.2rem, 6vw, 4.5rem); }
+  .article-nav { margin-bottom: 40px; }
+  .article-nav a:last-child { text-align: right; }
+</style>

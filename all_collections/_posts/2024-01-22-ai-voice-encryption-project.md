@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "대화형 AI 기반 파일 보안 시스템"
 date: 2024-01-22
 categories: [Project, Python, AI, Security]

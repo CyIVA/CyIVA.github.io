@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryButton from '../../components/CategoryButton.astro';
+import CategoryDialogs from '../../components/CategoryDialogs.astro';
+import { categoryIndex, formatDate, postSlug, sortPosts } from '../../lib/content';
+
+const posts = sortPosts(await getCollection('posts'));
+const categories = categoryIndex(posts);
+---
+
+<BaseLayout title="글" description="원민철의 개발 기록 전체 목록과 카테고리">
+  <div class="page-shell">
+    <header class="page-head">
+      <p class="eyebrow">Writing</p>
+      <h1>배우고 만든 것들</h1>
+      <p class="lead">완성된 답보다 문제를 풀어간 과정에 집중합니다. 총 {posts.length}개의 기록이 있습니다.</p>
+    </header>
+    <section class="section" aria-labelledby="categories-heading">
+      <div class="section-heading"><h2 id="categories-heading">카테고리</h2></div>
+      <div class="tag-list">
+        {categories.map((category) => (
+          <CategoryButton category={category.key} count={category.posts.length} />
+        ))}
+      </div>
+    </section>
+    <section class="section" aria-labelledby="posts-heading">
+      <div class="section-heading"><h2 id="posts-heading">전체 글</h2></div>
+      <ol class="post-list">
+        {posts.map((post) => (
+          <li class="post-row">
+            <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+            <div>
+              <a class="post-title" href={`/posts/${postSlug(post)}/`}>{post.data.title}</a>
+              <div class="tag-list post-tags">
+                {[...new Map(post.data.categories.map((item) => [item.toLowerCase(), item])).values()].map((category) => (
+                  <CategoryButton category={category} />
+                ))}
+              </div>
+            </div>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+  </div>
+
+  <CategoryDialogs posts={posts} showStaticFallback />
+</BaseLayout>
+
+<style>
+  .post-tags { margin-top: 8px; }
+  .post-tags .tag { padding: 4px 8px; font-size: .7rem; }
+  .modal h2 small { color: var(--muted); font-size: .9rem; }
+</style>

@@ -1,0 +1,83 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { categoryDialogId, categoryIndex, formatDate, postSlug } from '../lib/content';
+
+interface Props {
+  posts: CollectionEntry<'posts'>[];
+  currentPostId?: string;
+  showStaticFallback?: boolean;
+}
+
+const { posts, currentPostId, showStaticFallback = false } = Astro.props;
+const categories = categoryIndex(posts);
+---
+
+{categories.map((category) => (
+  <dialog class="modal category-modal" id={categoryDialogId(category.key)} aria-labelledby={`${categoryDialogId(category.key)}-title`}>
+    <div class="modal-inner">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">Category</p>
+          <h2 id={`${categoryDialogId(category.key)}-title`}>{category.label} <small>{category.posts.length}</small></h2>
+        </div>
+        <button class="modal-close" type="button" aria-label="팝업 닫기">×</button>
+      </div>
+      <ol class="modal-list">
+        {category.posts.map((post) => (
+          <li class:list={{ 'current-post': post.id === currentPostId }}>
+            <a href={`/posts/${postSlug(post)}/`}>{post.data.title}</a>
+            <div class="modal-meta">
+              <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+              {post.id === currentPostId && <span class="current-marker">현재 글</span>}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </dialog>
+))}
+
+{showStaticFallback && (
+  <noscript>
+    <div class="no-script-categories">
+      {categories.map((category) => (
+        <section id={`list-${categoryDialogId(category.key)}`}>
+          <h2>{category.label} ({category.posts.length})</h2>
+          <ol>
+            {category.posts.map((post) => (
+              <li><a href={`/posts/${postSlug(post)}/`}>{post.data.title}</a></li>
+            ))}
+          </ol>
+        </section>
+      ))}
+    </div>
+  </noscript>
+)}
+
+<script>
+  let categoryTrigger: HTMLElement | null = null;
+  document.querySelectorAll<HTMLAnchorElement>('[data-category-target]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const dialog = document.getElementById(link.dataset.categoryTarget ?? '') as HTMLDialogElement | null;
+      if (!dialog) return;
+      event.preventDefault();
+      categoryTrigger = link;
+      dialog.showModal();
+      history.replaceState(null, '', `#${dialog.id}`);
+    });
+  });
+
+  document.querySelectorAll<HTMLDialogElement>('.category-modal').forEach((dialog) => {
+    dialog.querySelector<HTMLButtonElement>('.modal-close')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', () => {
+      history.replaceState(null, '', `${location.pathname}${location.search}`);
+      categoryTrigger?.focus();
+      categoryTrigger = null;
+    });
+  });
+
+  const hashId = decodeURIComponent(location.hash.slice(1));
+  const hashDialog = document.getElementById(hashId) as HTMLDialogElement | null;
+  if (hashDialog?.matches('.category-modal')) hashDialog.showModal();
+</script>

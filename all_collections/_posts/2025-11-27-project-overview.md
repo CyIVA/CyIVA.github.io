@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "[HeimerRuri] 0. 프로젝트 개요 (Project Overview)"
 date:   2025-11-27
 categories: [HeimerRuri, Project]
@@ -47,13 +46,13 @@ MRI는 뇌의 구조적 변화를 비침습적으로 관찰할 수 있는 강력
 
 본 프로젝트의 전체 과정은 다음 세 개의 포스트로 나누어 상세히 다룬다:
 
-1. **[데이터 전처리 및 증강 (Preprocessing & Augmentation)]({% post_url 2025-11-28-project-preprocessing %})**  
+1. **[데이터 전처리 및 증강 (Preprocessing & Augmentation)](/posts/project-preprocessing/)**
    HD-BET를 이용한 뇌 추출, ANTsPy 기반 정합 및 ROI 추출, TorchIO를 활용한 고정 증강 시스템 구축.
 
-2. **[3D ResNet 모델 설계 및 학습 (Model Architecture)]({% post_url 2025-11-29-project-modeling %})**  
+2. **[3D ResNet 모델 설계 및 학습 (Model Architecture)](/posts/project-modeling/)**
    3D ResNet 블록 구조, Custom Early Stopping 메커니즘, K-Fold 앙상블 전략.
 
-3. **[결과 시각화 및 해석 (Visualization & XAI)]({% post_url 2025-11-30-project-visualization %})**  
+3. **[결과 시각화 및 해석 (Visualization & XAI)](/posts/project-visualization/)**
    성능 메트릭(ROC, AUC), Grad-CAM을 통한 XAI, 특징 맵 분석.
 
 ---
