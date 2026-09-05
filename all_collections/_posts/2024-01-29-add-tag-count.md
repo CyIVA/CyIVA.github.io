@@ -1,5 +1,4 @@
 ---
-layout: post
 title: add-tag-count
 date: 2024-01-29
 categories: [jekyll, html, javascript]
@@ -11,8 +10,8 @@ categories: [jekyll, html, javascript]
 
 ```javascript
 
-var js_categories = {% raw %}{{CATEGORY | split: ',' | join: ','}}{% endraw %};
-var js_category_list = {% raw %}{{CATEGORYS|split:','|join:','}}{%endraw%};
+var js_categories = {{CATEGORY | split: ',' | join: ','}};
+var js_category_list = {{CATEGORYS|split:','|join:','}};
 
 // console.log(js_categories);
 // console.log(js_category_list);
@@ -40,7 +39,7 @@ for (var now in js_category) {
 liquid와 javaScript를 동시에 사용하기에 구조적으로 난해하다.
 
 ```javascript
-const categories = { {% raw %}
+const categories = {
 {% for category in site.categories %}
     {% capture category_name %}
     {{ category | first }}
@@ -54,7 +53,6 @@ const categories = { {% raw %}
             title: `{{post.title}}`},
     {% endfor %}],
 {% endfor %} }
-{% endraw %}
 ```
 
 사용중이던 프로그램에서 제시한 방식이지만 이것은 더 난해하고, html + jekyll 지식이 더 필요한것같아 나중에 익숙해지면 해석해보고자 한다.

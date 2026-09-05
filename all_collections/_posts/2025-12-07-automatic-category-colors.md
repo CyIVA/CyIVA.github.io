@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "자동 카테고리 색상 부여 기능 개발 (Auto Category Coloring)"
 date: 2025-12-07
 categories: [Jekyll, JavaScript, CSS]

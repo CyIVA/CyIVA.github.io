@@ -1,0 +1,39 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatMonth, historyDate, sortHistory } from '../../lib/content';
+
+const items = sortHistory(await getCollection('history'));
+const rendered = await Promise.all(items.map(async (item) => ({ item, Content: (await render(item)).Content })));
+let previousYear = '';
+---
+
+<BaseLayout title="연혁" description="원민철의 개발과 프로젝트 연혁">
+  <div class="page-shell">
+    <header class="page-head">
+      <p class="eyebrow">History</p>
+      <h1>시간 위에 남은 기록</h1>
+      <p class="lead">프로젝트와 배움의 시작을 날짜순으로 정리했습니다.</p>
+    </header>
+    <section class="section">
+      <ol class="history-list">
+        {rendered.map(({ item, Content }) => {
+          const date = historyDate(item);
+          const year = String(date.getUTCFullYear());
+          const showYear = year !== previousYear;
+          previousYear = year;
+          return (
+            <>
+              {showYear && <li class="history-year">{year}</li>}
+              <li class="history-item">
+                <time datetime={date.toISOString()}>{formatMonth(date)}</time>
+                <h3>{item.data.title}</h3>
+                <div class="body"><Content /></div>
+              </li>
+            </>
+          );
+        })}
+      </ol>
+    </section>
+  </div>
+</BaseLayout>

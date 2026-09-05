@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "[HeimerRuri] 3. 결과 시각화 및 해석 (Visualization & XAI)"
 date:   2025-11-30
 categories: [HeimerRuri, Project]

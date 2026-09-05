@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "[HeimerRuri] 1. 데이터 전처리 및 증강 (Preprocessing & Augmentation)"
 date:   2025-11-28
 categories: [HeimerRuri, Project]

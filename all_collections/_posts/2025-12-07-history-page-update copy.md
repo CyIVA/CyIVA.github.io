@@ -1,5 +1,4 @@
 ---
-layout: post
 title: History 페이지 개편 - 버티컬 멀티트랙 타임라인
 date: 2025-12-08
 categories: [Dev, Blog]

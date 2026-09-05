@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "[HeimerRuri] ADNI 데이터셋 접근 및 다운로드"
 date:   2025-11-26
 categories: [HeimerRuri, Data]

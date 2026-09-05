@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "[HeimerRuri] 2. 3D ResNet 모델 설계 및 학습 (Model Architecture)"
 date:   2025-11-29
 categories: [HeimerRuri, Project]

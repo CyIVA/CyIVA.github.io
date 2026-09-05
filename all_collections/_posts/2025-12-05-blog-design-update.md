@@ -1,5 +1,4 @@
 ---
-layout: post
 title: 블로그 UI/UX 디자인 개편 (Dark Mode & Category Interface)
 date: 2025-12-05
 categories: [design, css, jekyll]
